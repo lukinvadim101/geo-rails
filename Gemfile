@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'geocoder'
 gem 'haml-rails'
 gem 'jbuilder'
 gem 'jsbundling-rails'
@@ -18,7 +19,7 @@ gem 'simple_form'
 gem 'sprockets', '<4'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
-gem "turbo-rails", '~> 1.0.0'
+gem 'turbo-rails', '~> 1.0.0'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -53,4 +54,4 @@ end
 group :production do
   gem 'pg'
 end
-gem "sassc-rails"
+gem 'sassc-rails'
