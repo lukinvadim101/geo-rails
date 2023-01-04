@@ -2,7 +2,7 @@
 
 class CreateLocations < ActiveRecord::Migration[7.0]
   def change
-    create_table :locations do |t|
+    create_table :private_locations do |t|
       t.text :name
       t.float :latitude
       t.float :longitude

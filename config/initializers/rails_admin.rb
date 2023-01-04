@@ -11,7 +11,6 @@ RailsAdmin.config do |config|
     dashboard                     # mandatory
     index                         # mandatory
     new
-    bulk_delete
     show
     edit
     delete

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 class HomeController < ApplicationController
   def index
-    @locations = Location.all
+    @private_locations = Location.all.where(users: current_user)
+    @public_locations = Location.all
 
     # return unless Rails.env.production?
 
