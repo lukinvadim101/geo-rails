@@ -10,5 +10,5 @@
 admin = User.create({ email: 'admin@app.com', password: 'password', admin: true })
 user = User.create({ email: 'user@app.com', password: 'password' })
 # to add
-# Location.create({ name: 'Easter Island', latitude: -27.112722, longitude: -109.349686, user_id: admin.id })
+# Location.create({ name: 'Easter Island', latitude: -27.112722, longitude: -109.349686, user_id: admin.id }) is private
 # Location.create({ name: 'Christmas Island', latitude: -10.447525, longitude: 105.690453, user_id: user.id })
