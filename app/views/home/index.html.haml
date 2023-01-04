@@ -1,3 +1,15 @@
 %h1.text-center Home page
-%button.btn.btn-lg.btn-danger
-  Click
+
+%table
+  %tr
+    %th Location
+    %th X
+    %th Y
+  - @locations.each do |location|
+    %tr
+      %td= location.name
+      %td= location.latitude
+      %td= location.longitude
+      -# %td= link_to 'Show', location
+      -# %td= link_to 'Edit', edit_location_path(location)
+      -# %td= button_to 'Remove', location, :confirm => 'Are you sure?', :method => :delete
