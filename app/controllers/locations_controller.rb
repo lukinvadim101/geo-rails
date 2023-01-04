@@ -4,12 +4,12 @@ class LocationsController < ApplicationController
   before_action :find_location, only: %i[show update destroy]
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
-  def index
+  def private_locations
     @private_locations = Location.all.where(users: current_user)
     render json: @private_locations
   end
 
-  def public
+  def public_locations
     @public_locations = Location.all
     render json: @public_locations
   end
@@ -54,7 +54,7 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    params.require(:location).permit(:name, :latitude, :longitude, :user_id)
+    params.require(:location).permit(:name, :latitude, :longitude, :user_id, :is_private)
   end
 
   def find_location
