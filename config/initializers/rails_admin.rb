@@ -3,7 +3,7 @@ RailsAdmin.config do |config|
 
   ## == Devise ==
   config.authenticate_with do
-    redirect_to '/', notice: 'Got no permissions to admin panel access' unless warden.user.admin?
+    redirect_to '/', alert: 'No permissions for admin panel' unless warden.user.admin?
   end
   config.current_user_method(&:current_user)
 
