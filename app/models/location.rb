@@ -6,5 +6,5 @@ class Location < ApplicationRecord
   validates :latitude,    presence: true, numericality: true
   validates :longitude,   presence: true, numericality: true
   validates :user_id,     presence: true, numericality: true
-  # validates :is_private,  presence: true, boolean: true
+  validates :is_private,  presence: true, inclusion: [true, false]
 end
