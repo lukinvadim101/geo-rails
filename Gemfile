@@ -6,11 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'devise-jwt'
 gem 'geocoder'
 gem 'haml-rails'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 5.0'
+gem 'rack-cors'
 gem 'rails', '~> 7.0.4'
 gem 'rails_admin'
 gem 'redcarpet'
