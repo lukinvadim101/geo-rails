@@ -13,10 +13,8 @@ class LocationsController < ApplicationController
     if @location.empty?
       render json: { 'message': 'no location found' }
     else
-      render json: @location
+      render json: { location: @location }
     end
-  rescue ActiveRecord::RecordNotFound
-    # Ignored
   end
 
   def create

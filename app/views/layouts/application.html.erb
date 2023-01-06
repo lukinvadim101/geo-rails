@@ -11,17 +11,6 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container" id="navbarNavAltMarkup">
-      <div class="navbar-nav justify-content-between d-inline-flex w-100">
-        <% if user_signed_in? %>
-          <%= render 'layouts/header_for_login' %>
-        <%  else %>
-          <%= render 'layouts/header_for_not_login' %>
-        <% end %>
-      </div>
-    </div>
-  </nav>
   <div class='container mt-4'>
     <% if flash[:notice].present? %>
       <p class='text-center alert alert-warning'> <%= flash[:notice]%> </p>
