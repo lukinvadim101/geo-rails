@@ -36,11 +36,12 @@ RSpec.describe 'Posts', type: :request do
       before do
 
         login_as(user)
-        post '/locations', params: { location: 'hack' }
+        post '/locations', params: { location: {} }
       end
 
       it 'returns a unprocessable entity status' do
-        expect(response).to have_http_status(:unprocessable_entity)
+        # binding.pry
+        expect(response.status).to eq 422
       end
     end
   end
