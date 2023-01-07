@@ -1,9 +1,9 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*'
-
+    origins 'http://your.frontend.domain.com'
     resource '*',
-             headers: :any,
-             methods: %i[get post put patch delete options head]
+             headers: %w[Authorization],
+             methods: :any,
+             expose: %w[Authorization]
   end
 end

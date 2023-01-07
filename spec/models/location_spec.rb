@@ -5,7 +5,7 @@ RSpec.describe Location, type: :model do
   describe 'associations' do
 
     it do
-      should belong_to :user1
+      should belong_to :user
     end
   end
 

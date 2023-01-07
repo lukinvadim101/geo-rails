@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Locations', type: :request do
-  let(:user1) { FactoryBot.create(:user1) }
-  let(:user2) { FactoryBot.create(:user1) }
-  let(:location1) { FactoryBot.create(:location1, user_id: user1.id) }
+  let(:user1) { FactoryBot.create(:user) }
+  let(:user2) { FactoryBot.create(:user) }
+  let(:location1) { FactoryBot.create(:location, user_id: user1.id) }
 
   context 'unauthorized user' do
     describe 'GET /locations' do
