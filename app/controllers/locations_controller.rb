@@ -2,45 +2,35 @@
 
 class LocationsController < ApplicationController
   before_action :find_location, only: %i[show update destroy]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
   def index
     @private_locations = Location.all.where(users: current_user)
-    render json: @private_locations
+    json_response @private_locations
   end
 
   def show
     if @location.empty?
-      render json: { 'message': 'no location found' }
+      json_response 'message': 'no location found'
     else
-      render json: { location: @location }
+      json_response @location
     end
   end
 
   def create
     @location = Location.new(location_params)
-    if @location.save
-      render json: @location, status: :ok
-    else
-      render json: { error: 'Unable to create location.' }, status: :unprocessable_entity
-    end
+    json_response @location
   end
 
   def update
-    if @location
-      @location.update(location_params)
-      render json: { message: 'location successfully update.' }, status: :ok
-    else
-      render json: { error: 'Unable to update location.' }, status: 400
-    end
+    @location.update(location_params)
+    json_response message: 'location successfully update.'
   end
 
   def destroy
     if @location
       @location.destroy
-      render json: { message: 'location successfully deleted.' }, status: :ok
+      json_response message: 'location successfully deleted.'
     else
-      render json: { error: 'Unable to delete location. ' }, status: 400
+      json_response error: 'Unable to delete location. ', status: 400
     end
   end
 
@@ -52,9 +42,5 @@ class LocationsController < ApplicationController
 
   def find_location
     @location = Location.where(id: params[:id], users: current_user)
-  end
-
-  def handle_record_not_found
-    render json: { 'message': 'no location found' }
   end
 end

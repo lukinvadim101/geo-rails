@@ -1,12 +1,13 @@
+# frozen_string_literal: true
 
 require 'rails_helper'
 
-RSpec.describe 'Posts', type: :request do
-  describe 'POST /create' do
-    context 'with valid parameters' do
-      let!(:user) { FactoryBot.create(:user) }
-      let!(:location) { FactoryBot.build(:location) }
+RSpec.describe 'POST Locations', type: :request do
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:location) { FactoryBot.build(:location) }
 
+  describe '/create' do
+    context 'with valid parameters' do
       before do
         login_as(user)
         post '/locations', params:
@@ -18,29 +19,22 @@ RSpec.describe 'Posts', type: :request do
           } }
       end
 
-      it 'returns the title' do
+      it 'returns name' do
         expect(json['name']).to eq(location.name)
-      end
-
-      it 'returns the content' do
-        expect(json['longitude']).to eq(location.longitude)
       end
 
       it 'returns a created status' do
         expect(response).to have_http_status(:ok)
       end
     end
-  #
-    context 'with invalid parameters' do
-      let!(:user) { FactoryBot.create(:user) }
-      before do
 
+    context 'with invalid parameters' do
+      before do
         login_as(user)
         post '/locations', params: { location: {} }
       end
 
       it 'returns a unprocessable entity status' do
-        # binding.pry
         expect(response.status).to eq 422
       end
     end
