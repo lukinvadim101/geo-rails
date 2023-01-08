@@ -2,10 +2,11 @@
 
 class LocationsController < ApplicationController
   load_and_authorize_resource
+  before_action :save_user_coordinates, only: :index
 
   def index
-    @private_locations = Location.all.where(users: current_user)
-    json_response @private_locations
+    @locations = Location.all.where(users: current_user)
+    json_response @locations
   end
 
   def show
@@ -31,5 +32,18 @@ class LocationsController < ApplicationController
 
   def location_params
     params.require(:location).permit(:name, :latitude, :longitude, :user_id, :is_private)
+  end
+
+  def save_user_coordinates
+    current_geo = Location.new(
+      name: 'autosave',
+      longitude: request.location.longitude,
+      latitude: request.location.latitude,
+      user_id: current_user.id
+    )
+
+    return unless Rails.env.production? && current_geo.valid?
+
+    current_geo.save
   end
 end
