@@ -2,9 +2,10 @@
 
 class LocationsController < ApplicationController
   load_and_authorize_resource
-  before_action :save_user_coordinates, only: :index
 
   def index
+    save_user_coordinates if Rails.env.production?
+
     @locations = Location.all.where(users: current_user)
     json_response @locations
   end
@@ -42,7 +43,7 @@ class LocationsController < ApplicationController
       user_id: current_user.id
     )
 
-    return unless Rails.env.production? && current_geo.valid?
+    return unless current_geo.valid?
 
     current_geo.save
   end
