@@ -12,8 +12,9 @@ RSpec.describe 'POST Locations', type: :request do
                   user_id: user.id,
                   latitude: location.latitude,
                   longitude: location.longitude }
-    } end
-  
+    }
+  end
+
   let(:valid_like) do
     {
       location: { name: nil,
@@ -21,7 +22,7 @@ RSpec.describe 'POST Locations', type: :request do
                   latitude: 9999,
                   longitude: -500 }
     }
-end
+  end
 
   describe 'create' do
     context 'with valid parameters' do

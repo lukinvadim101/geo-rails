@@ -7,6 +7,7 @@ class Ability
     if user.admin?
       can :manage, :all
     else
+      can :autosave, :all
       can :create, Location
       can [:read, :update, :destroy], Location do |location|
         location.try(:user) == user

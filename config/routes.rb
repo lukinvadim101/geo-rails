@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root 'locations#index'
+  get 'autosave', to: 'locations#autosave'
   resources :locations, only: %i[show create update destroy index]
 end
