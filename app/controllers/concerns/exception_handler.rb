@@ -12,7 +12,7 @@ module ExceptionHandler
       json_response({ message: e.message }, :unprocessable_entity)
     end
 
-    rescue_from ActionController::ParameterMissing do |e|
+    rescue_from CanCan::AccessDenied do |e|
       json_response({ message: e.message }, :unprocessable_entity)
     end
   end

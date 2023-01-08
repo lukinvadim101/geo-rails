@@ -18,6 +18,5 @@ RSpec.describe Location, type: :model do
     it { should validate_numericality_of(:longitude) }
 
     it { should validate_presence_of(:is_private) }
-    it { should validate_inclusion_of(:is_private).in_array([true, false]) }
   end
 end

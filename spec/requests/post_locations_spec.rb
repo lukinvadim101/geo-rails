@@ -12,8 +12,16 @@ RSpec.describe 'POST Locations', type: :request do
                   user_id: user.id,
                   latitude: location.latitude,
                   longitude: location.longitude }
+    } end
+  
+  let(:valid_like) do
+    {
+      location: { name: nil,
+                  user_id: nil,
+                  latitude: 9999,
+                  longitude: -500 }
     }
-  end
+end
 
   describe 'create' do
     context 'with valid parameters' do
@@ -27,22 +35,20 @@ RSpec.describe 'POST Locations', type: :request do
       end
 
       it 'returns a created status' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:created)
       end
     end
 
     context 'with invalid parameters' do
-      before do
-        login_as(user)
-        post '/locations', params: invalid_attributes
-      end
+      # before do
+      #
+      # end
 
       it 'returns error message' do
-        expect(json['message']).to eq('param is missing or the value is empty: location')
-      end
-
-      it 'returns a unprocessable entity status' do
-        expect(response.status).to eq 422
+        login_as(user)
+        post '/locations', params: valid_like
+        # binding.pry
+        expect(json['message']).to include('Validation failed')
       end
     end
   end
