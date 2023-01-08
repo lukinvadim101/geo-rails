@@ -26,12 +26,8 @@ class LocationsController < ApplicationController
   end
 
   def destroy
-    if @location
-      @location.destroy
-      json_response message: 'location successfully deleted.'
-    else
-      json_response error: 'Unable to delete location. ', status: 400
-    end
+    @location.first.destroy
+    json_response message: 'location successfully deleted.'
   end
 
   private
@@ -41,6 +37,6 @@ class LocationsController < ApplicationController
   end
 
   def find_location
-    @location = Location.where(id: params[:id], users: current_user)
+    @location = Location.where(id: params[:id], user_id: current_user)
   end
 end
