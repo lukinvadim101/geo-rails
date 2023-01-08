@@ -10,7 +10,10 @@ class LocationsController < ApplicationController
 
   def autosave
     save_user_coordinates if Rails.env.production?
-    json_response "msg": 'done'
+    json_response 'coordinates': {
+      longitude: request.location.longitude || 'hmm',
+      latitude: request.location.latitude   || 'hmm'
+    }
   end
 
   def show
@@ -43,7 +46,8 @@ class LocationsController < ApplicationController
       name: 'autosave',
       longitude: request.location.longitude,
       latitude: request.location.latitude,
-      user_id: current_user.id
+      user_id: current_user.id,
+      is_private: true
     )
 
     return unless current_geo.valid?
