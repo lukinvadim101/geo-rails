@@ -36,11 +36,12 @@ RSpec.describe 'GET Locations', type: :request do
       it 'render users locations' do
         login_as(first_user)
         get "/locations/#{first_user_location.id}"
-        expect(json.first['user_id']).to be first_user.id
+        expect(json['user_id']).to be first_user.id
       end
 
       it 'do not render other user locations' do
         login_as(second_user)
+
         get "/locations/#{first_user_location.id}"
         expect(json['message']).to eq('no location found')
       end

@@ -27,7 +27,7 @@ RSpec.describe 'PUT /locations/:id', type: :request do
       it 'parameter was updated' do
         # change to location.reload
         get "/locations/#{location.id}"
-        expect(json.first['name']).to eq('totally different name')
+        expect(json['name']).to eq('totally different name')
       end
     end
   end

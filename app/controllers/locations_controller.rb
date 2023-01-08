@@ -2,17 +2,14 @@
 
 class LocationsController < ApplicationController
   before_action :find_location, only: %i[show update destroy]
+
   def index
     @private_locations = Location.all.where(users: current_user)
     json_response @private_locations
   end
 
   def show
-    if @location.empty?
-      json_response 'message': 'no location found'
-    else
-      json_response @location
-    end
+    json_response @location
   end
 
   def create
@@ -26,8 +23,8 @@ class LocationsController < ApplicationController
   end
 
   def destroy
-    @location.first.destroy
-    json_response message: 'location successfully deleted.'
+      @location.destroy
+      json_response message: 'location successfully deleted.'
   end
 
   private
@@ -37,6 +34,6 @@ class LocationsController < ApplicationController
   end
 
   def find_location
-    @location = Location.where(id: params[:id], user_id: current_user)
+    @location = Location.find(params[:id])
   end
 end
