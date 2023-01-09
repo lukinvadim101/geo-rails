@@ -2,7 +2,7 @@
 
 class Location < ApplicationRecord
   belongs_to :user
-  validates :name, length: { minimum: 2 }
+  validates :name, length: { minimum: 2 }, allow_blank: false, allow_nil: false
   validates :is_private, inclusion: [true, false], allow_blank: false, allow_nil: false
 
   validates :latitude, numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }

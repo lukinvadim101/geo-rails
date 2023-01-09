@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe 'POST Locations', type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:location) { FactoryBot.build(:location) }
-  let(:invalid_attributes) { { hack: {} } }
   let(:valid_attributes) do
     {
       location: { name: location.name,
@@ -15,7 +14,7 @@ RSpec.describe 'POST Locations', type: :request do
     }
   end
 
-  let(:valid_like) do
+  let(:invalid_attributes) do
     {
       location: { name: nil,
                   user_id: nil,
@@ -25,9 +24,11 @@ RSpec.describe 'POST Locations', type: :request do
   end
 
   describe 'create' do
+    before do
+      login_as(user)
+    end
     context 'with valid parameters' do
       before do
-        login_as(user)
         post '/locations', params: valid_attributes
       end
 
@@ -41,14 +42,8 @@ RSpec.describe 'POST Locations', type: :request do
     end
 
     context 'with invalid parameters' do
-      # before do
-      #
-      # end
-
       it 'returns error message' do
-        login_as(user)
-        post '/locations', params: valid_like
-        # binding.pry
+        post '/locations', params: invalid_attributes
         expect(json['message']).to include('Validation failed')
       end
     end
