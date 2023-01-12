@@ -27,6 +27,7 @@ RSpec.describe 'POST Locations', type: :request do
     before do
       login_as(user)
     end
+
     context 'with valid parameters' do
       before do
         post '/locations', params: valid_attributes

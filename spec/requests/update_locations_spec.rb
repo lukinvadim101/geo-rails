@@ -7,7 +7,6 @@ RSpec.describe 'PUT /locations/:id', type: :request do
   let!(:location) { FactoryBot.create(:location, user_id: user.id) }
   let(:valid_attributes) { { location: { name: 'totally different name' } } }
 
-
   describe 'update' do
     context 'with valid parameters' do
       before do

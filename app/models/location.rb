@@ -2,12 +2,12 @@
 
 class Location < ApplicationRecord
   belongs_to :user
-  validates :name, length: { minimum: 2 }, allow_blank: false, allow_nil: false
-  validates :is_private, inclusion: [true, false], allow_blank: false, allow_nil: false
+  validates :name, length: { minimum: 2 }, allow_blank: false
+  validates :is_private, inclusion: [true, false], allow_blank: false
 
-  validates :latitude, numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
-  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
+  validates :latitude, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
+  validates :longitude,
+            numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
-
-  validates_presence_of :name, :latitude, :longitude, :user_id, :is_private
+  validates :name, :latitude, :longitude, :user_id, :is_private, presence: true
 end

@@ -55,7 +55,7 @@ RSpec.describe 'GET Locations', type: :request do
 
     describe '/admin panel access' do
       context 'admin user' do
-        it 'should ' do
+        it '' do
           login_as(admin_user)
           get '/admin'
           expect(response.status).to be 200
@@ -63,7 +63,7 @@ RSpec.describe 'GET Locations', type: :request do
       end
 
       context 'regular user' do
-        it 'should ' do
+        it 'redirect' do
           login_as(first_user)
           get '/admin'
           expect(response.body).to include('redirected')
