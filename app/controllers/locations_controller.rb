@@ -8,12 +8,19 @@ class LocationsController < ApplicationController
     json_response @locations
   end
 
-  def autosave
-    save_user_coordinates if Rails.env.production?
-    json_response 'coordinates': {
-      longitude: request.location.longitude || 'hmm',
-      latitude: request.location.latitude   || 'hmm'
-    }
+  def save
+    coordinates = GeocoderServices::GetLocationFromIp.new(request).call
+
+    location = Location.new(
+      name: coordinates[:name],
+      longitude: coordinates[:longitude],
+      latitude: coordinates[:latitude],
+      is_private: true,
+      user_id: current_user.id
+    )
+
+    location.save
+    json_response location
   end
 
   def show
@@ -39,20 +46,5 @@ class LocationsController < ApplicationController
 
   def location_params
     params.require(:location).permit(:name, :latitude, :longitude, :user_id, :is_private)
-  end
-
-  def save_user_coordinates
-    current_geo = Location.new(
-      name: 'autosave',
-      longitude: request.location.longitude,
-      latitude: request.location.latitude,
-      user_id: current_user.id,
-      is_private: true
-    )
-
-    return unless current_geo.valid?
-
-    current_geo.save
-    current_geo
   end
 end
