@@ -19,5 +19,9 @@ module Users
     def register_failed
       render json: { message: 'Something went wrong.' }
     end
+
+    def new
+      render json: { message: 'Sodsdsd.' }
+    end
   end
 end

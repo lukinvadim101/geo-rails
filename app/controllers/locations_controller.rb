@@ -6,7 +6,6 @@ class LocationsController < ApplicationController
   def index
     @locations = Location.all.where(users: current_user)
     json_response @locations
-    binding.pry
   end
 
   def save
