@@ -3,9 +3,10 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   has_many :locations, dependent: :destroy
+  has_many :jwt_denylists, dependent: :destroy
 
   devise :database_authenticatable,
          :jwt_authenticatable,
          :registerable,
-         jwt_revocation_strategy: JwtDenylist
+         jwt_revocation_strategy: self
 end
