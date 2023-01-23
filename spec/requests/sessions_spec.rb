@@ -13,7 +13,7 @@ describe 'DELETE destroy' do
     # request.headers.merge!(auth_headers)
 
     # delete '/logout', headers: auth_headers, params: { id: user.id }
-    delete '/logout', params: { id: user.id }
+    delete '/logout', headers: auth_headers, params: { id: user.id }
     # binding.pry
     expect(json['message']).to eq('Signed out successfully')
   end
