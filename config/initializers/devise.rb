@@ -40,26 +40,15 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
-
+    jwt.request_formats = { user: [:json] }
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
     jwt.revocation_requests = [
       ['DELETE', %r{^/logout$}]
     ]
-    jwt.expiration_time = 90.minutes.to_i
+    jwt.expiration_time = 90.days.to_i
   end
-
-  # config.jwt do |jwt|
-  #   jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
-  #   jwt.dispatch_requests = [
-  #     ['POST', %r{^/login$}]
-  #   ]
-  #   jwt.revocation_requests = [
-  #     ['DELETE', %r{^/logout$}]
-  #   ]
-  #   jwt.expiration_time = 30.minutes.to_i
-  # end
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
