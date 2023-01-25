@@ -14,13 +14,20 @@ class SessionsController < Devise::SessionsController
   def respond_with(_resource, _options = {})
     return if resource.id.blank?
 
+    # binding.pry
     # return unless user_signed_in?
+
     render json: {
       message: 'User signed in successfully',
-      data: current_user,
-      token: "Bearer #{@user.generate_jwt}"
+      # data: current_user,
+      # token: Warden::JWTAuth::UserEncoder.new.call(@user, :user, 'JWT_AUD')
+      token: request.env['warden-jwt_auth.token']
     }, status: :ok
   end
+
+  # def valid?
+  #   request.headers['Authorization'].present?
+  # end
 
   def respond_to_on_destroy
     return if request.headers['Authorization'].blank?

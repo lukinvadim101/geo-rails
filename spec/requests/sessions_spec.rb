@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'devise/jwt/test_helpers'
 
-describe 'DELETE destroy' do
+describe 'SESSIONS DELETE destroy' do
   let(:user) { FactoryBot.create(:user) }
 
   it 'tests logout' do
