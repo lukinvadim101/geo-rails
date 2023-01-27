@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LocationsController < ApplicationController
+class LocationsController < ApiController
   load_and_authorize_resource
 
   def index
@@ -9,8 +9,12 @@ class LocationsController < ApplicationController
     # binding.pry
   end
 
+  def get_coordinates(request)
+    GeocoderServices::GetLocationFromIp.new(request).call
+  end
+
   def save
-    coordinates = GeocoderServices::GetLocationFromIp.new(request).call
+    coordinates = get_coordinates(request)
 
     location = Location.new(
       name: coordinates[:name],
