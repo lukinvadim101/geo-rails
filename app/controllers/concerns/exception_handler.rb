@@ -12,6 +12,8 @@ module ExceptionHandler
       json_response({ message: e.message }, :unprocessable_entity)
     end
 
+    # RailsAdmin::MainController
+
     rescue_from ActionController::ParameterMissing do |e|
       json_response({ message: e.message }, :unprocessable_entity)
     end

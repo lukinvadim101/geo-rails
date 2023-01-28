@@ -2,5 +2,6 @@
 
 class ApplicationController < ActionController::API
   include Response
+  include Request
   include ExceptionHandler
 end

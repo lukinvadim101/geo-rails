@@ -6,31 +6,24 @@ class SessionsController < Devise::SessionsController
   private
 
   def respond_with(_resource, _options = {})
-    return if resource.id.blank?
+    return unless user_signed_in?
 
-    # binding.pry
-    # return unless user_signed_in?
-
-    render json: {
+    json_response data: {
       message: 'User signed in successfully',
-      # data: current_user,
-      # token: Warden::JWTAuth::UserEncoder.new.call(@user, :user, 'JWT_AUD')
+      email: current_user.email,
       token: request.env['warden-jwt_auth.token']
     }, status: :ok
   end
 
-  # def valid?
-  #   request.headers['Authorization'].present?
-  # end
-
   def respond_to_on_destroy
     return if request.headers['Authorization'].blank?
 
+    binding.pry
     begin
       jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1].remove('"'),
                                Rails.application.secrets.secret_key_base).first
       # binding.pry
-      current_user = User.find(jwt_payload['id'])
+      current_user = User.find(jwt_payload['sub'])
       if current_user
         render json: {
           status: 200,
@@ -43,23 +36,7 @@ class SessionsController < Devise::SessionsController
         }, status: :unauthorized
       end
     rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
-      head :unauthorized
+      # json_response {"dsd":"www"}
     end
   end
-
-  # jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1],
-  #                          Rails.application.credentials.devise[:jwt_secret_key]).first
-  # current_user = User.find(jwt_payload['sub'])
-  # if current_user
-  #   render json: {
-  #     status: 200,
-  #     message: 'Signed out successfully'
-  #   }, status: :ok
-  # else
-  #   render json: {
-  #     status: 401,
-  #     message: 'User has no active session'
-  #   }, status: :unauthorized
-  # end
-  # end
 end
