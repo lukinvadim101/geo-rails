@@ -12,6 +12,15 @@ Rails.application.routes.draw do
                      },
                      defaults: { format: :json }
 
+  # to do custom devise
+  # ,
+  #                    skip: %i[sessions registrations]
+
+  # devise_scope :user do
+  #   post 'login', to: 'devise/sessions#create', as: :user_session
+  #   delete '/users/sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+  # end
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root 'locations#index'
   get 'save', to: 'locations#save'

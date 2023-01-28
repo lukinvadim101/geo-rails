@@ -3,12 +3,6 @@
 class SessionsController < Devise::SessionsController
   respond_to :json
 
-  # def create
-  #   super do |resource|
-  #     resource.token =
-  #   end
-  # end
-
   private
 
   def respond_with(_resource, _options = {})

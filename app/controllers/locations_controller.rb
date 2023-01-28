@@ -4,6 +4,7 @@ class LocationsController < ApiController
   load_and_authorize_resource
 
   def index
+    # create scope in locations model
     @locations = Location.all.where(users: current_user)
     json_response @locations
     # binding.pry
