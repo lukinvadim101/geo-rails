@@ -40,7 +40,9 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
-    jwt.request_formats = { user: [:json] }
+    jwt.request_formats = {
+      user: [:json]
+    }
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
@@ -275,7 +277,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = ['*/*', :html, :turbo_stream]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete

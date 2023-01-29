@@ -10,20 +10,9 @@ class LocationsController < ApiController
     # binding.pry
   end
 
-  def get_coordinates(request)
-    GeocoderServices::GetLocationFromIp.new(request).call
-  end
-
   def save
     coordinates = get_coordinates(request)
-
-    location = Location.new(
-      name: coordinates[:name],
-      longitude: coordinates[:longitude],
-      latitude: coordinates[:latitude],
-      is_private: true,
-      user_id: current_user.id
-    )
+    location = set_user_location(coordinates)
 
     location.save
     json_response location
@@ -49,6 +38,20 @@ class LocationsController < ApiController
   end
 
   private
+
+  def get_coordinates(request)
+    GeocoderServices::GetLocationFromIp.new(request).call
+  end
+
+  def set_user_location(coordinates)
+    Location.new(
+      name: coordinates[:name],
+      longitude: coordinates[:longitude],
+      latitude: coordinates[:latitude],
+      is_private: true,
+      user_id: current_user.id
+    )
+  end
 
   def location_params
     params.require(:location).permit(:name, :latitude, :longitude, :user_id, :is_private)

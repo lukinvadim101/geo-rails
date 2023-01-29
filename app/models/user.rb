@@ -10,5 +10,5 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          :registerable,
          :validatable,
-         jwt_revocation_strategy: self
+         jwt_revocation_strategy: JwtDenylist
 end
