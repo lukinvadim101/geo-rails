@@ -33,7 +33,7 @@ describe SessionsController, type: :request do
         expect(response.status).to eq(401)
       end
 
-      it 'not settle user_id in session' do
+      it 'return error' do
         expect(response.body).to eq('Invalid Email or password.')
       end
     end

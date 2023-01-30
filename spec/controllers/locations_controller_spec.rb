@@ -148,14 +148,14 @@ RSpec.describe LocationsController, type: :request do
 
     describe 'GET locations' do
       describe '/locations' do
-        it 'gets error' do
+        it 'return error' do
           get '/locations'
           expect(json['error']).to be_truthy
         end
       end
 
       describe '/locations/:id' do
-        it 'gets error' do
+        it 'return error' do
           get "/locations/#{user_location.id}"
           expect(json['error']).to be_truthy
         end
@@ -165,17 +165,7 @@ RSpec.describe LocationsController, type: :request do
     describe 'POST create' do
       let(:valid_attributes) { attributes_for(:location) }
 
-      # let(:location) { FactoryBot.build(:location) }
-      # let(:valid_attributes) do
-      #     {
-      #       location: { name: location.name,
-      #                   user_id: user.id,
-      #                   latitude: location.latitude,
-      #                   longitude: location.longitude }
-      #     }
-      #   end
-
-      it 'gets error' do
+      it 'returns error' do
         post '/locations', params: valid_attributes
         expect(json['error']).to be_truthy
       end
@@ -185,7 +175,7 @@ RSpec.describe LocationsController, type: :request do
       let!(:location) { FactoryBot.create(:location, user_id: user.id) }
       let(:valid_attributes) { { location: { name: 'totally different name' } } }
 
-      it 'get error' do
+      it 'returns error' do
         put "/locations/#{location.id}", params: valid_attributes
         expect(json['error']).to be_truthy
       end
@@ -194,7 +184,7 @@ RSpec.describe LocationsController, type: :request do
     describe 'DELETE destroy' do
       let(:location) { FactoryBot.create(:location, user_id: user.id) }
 
-      it 'gets error' do
+      it 'return error' do
         delete "/locations/#{user_location.id}"
         expect(json['error']).to be_truthy
       end
