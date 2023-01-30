@@ -116,7 +116,7 @@ RSpec.describe LocationsController, type: :request do
     describe 'DELETE destroy' do
       describe 'can not destroy other user locations' do
         before do
-          delete "locations/#{second_user_location.id}"
+          delete "/locations/#{second_user_location.id}"
         end
 
         it 'returns unsuccessful response status' do
@@ -130,7 +130,7 @@ RSpec.describe LocationsController, type: :request do
 
       describe 'can destroy self locations' do
         before do
-          delete "locations/#{user_location.id}"
+          delete "/locations/#{user_location.id}"
         end
 
         it 'returns unsuccessful response status' do
@@ -149,84 +149,57 @@ describe 'guest user' do
   let(:user) { FactoryBot.create(:user) }
   let(:user_location) { FactoryBot.create(:location, user_id: user.id) }
 
-  describe 'GET locations'
-  describe '/locations' do
-    it 'get error' do
-      get '/locations'
+  describe 'GET locations' do
+    describe '/locations' do
+      it 'gets error' do
+        get '/locations'
+        expect(json['error']).to be_truthy
+      end
+    end
+
+    describe '/locations/:id' do
+      it 'gets error' do
+        get "/locations/#{user_location.id}"
+        expect(json['error']).to be_truthy
+      end
+    end
+  end
+
+  describe 'POST create' do
+    let(:valid_attributes) { attributes_for(:location) }
+
+    # let(:location) { FactoryBot.build(:location) }
+    # let(:valid_attributes) do
+    #     {
+    #       location: { name: location.name,
+    #                   user_id: user.id,
+    #                   latitude: location.latitude,
+    #                   longitude: location.longitude }
+    #     }
+    #   end
+
+    it 'gets error' do
+      post '/locations', params: valid_attributes
       expect(json['error']).to be_truthy
     end
   end
 
-  describe '/locations/:id' do
+  describe 'PUT update' do
+    let!(:location) { FactoryBot.create(:location, user_id: user.id) }
+    let(:valid_attributes) { { location: { name: 'totally different name' } } }
+
     it 'get error' do
-      get "/locations/#{user_location.id}"
+      put "/locations/#{location.id}", params: valid_attributes
+      expect(json['error']).to be_truthy
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let(:location) { FactoryBot.create(:location, user_id: user.id) }
+
+    it 'gets error' do
+      delete "/locations/#{user_location.id}"
       expect(json['error']).to be_truthy
     end
   end
 end
-
-# describe 'admin user' do
-#   let(:admin_user) { FactoryBot.create(:user, admin: true) }
-#
-#   describe 'GET /admin ' do
-#     let(:user) { FactoryBot.create(:user) }
-#
-#     context 'when autorized' do
-#       it 'redirect' do
-#         get '/admin'
-#         expect(response.body).to include('redirected')
-#       end
-#     end
-#
-#     ###### TO DO
-#   end
-
-# describe 'admin user' do
-#   let(:admin) { FactoryBot.create(:user, admin: true) }
-#   let(:admin_location) { FactoryBot.create(:location, user_id: admin.id) }
-#
-#   describe 'GET /admin ' do
-#     let(:user) { FactoryBot.create(:user) }
-#
-#     context 'when autorized' do
-#       it 'redirect' do
-#         get '/admin'
-#         expect(response.body).to include('redirected')
-#       end
-#     end
-#
-#   ###### TO DO
-# end
-#
-# describe "DELETE destroy" do
-#   before do
-#       delete "#{locations_path}/#{user_location.id}"
-#     end
-#
-#     it 'returns status ok' do
-#       expect(response.status).to be 200
-#     end
-#
-#     it 'record destroys' do
-#       expect(Location.exists?(user_location.id)).to be false
-#     end
-#   end
-#
-#   describe '/admin panel access' do
-#     it 'have access' do
-#       login_as(admin_user)
-#       get '/admin'
-#       expect(response.status).to be 200
-#     end
-#   end
-# end
-
-#
-#   describe '/admin panel access' do
-#     it 'have access' do
-#       login_as(admin_user)
-#       get '/admin'
-#       expect(response.status).to be 200
-#     end
-#   end
-# end
