@@ -9,7 +9,7 @@ module Response
     if resource.errors.empty?
       json_response resource
     else
-      json_response resource.errors, status: :bad_request
+      json_response resource.errors
     end
   end
 end

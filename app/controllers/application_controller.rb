@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include ActionController::MimeResponds
+
   include Response
-  include Request
   include ExceptionHandler
 end

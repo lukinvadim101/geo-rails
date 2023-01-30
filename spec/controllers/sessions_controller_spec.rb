@@ -24,15 +24,18 @@ describe SessionsController, type: :request do
       end
     end
 
-    context 'missing password' do
-      it 'returns 401' do
+    context 'when missing password' do
+      before do
         post login_url, params: { user: { email: user.email, password: nil } }
+      end
+
+      it 'returns 401' do
         expect(response.status).to eq(401)
       end
 
       it 'not settle user_id in session' do
-        post login_url, params: { user: { email: user.email, password: nil } }
-        expect(json['error']).to be_truthy
+        # binding.pry
+        expect(json['error']).to eq('Invalid Email or password.')
       end
     end
   end
