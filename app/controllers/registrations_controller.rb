@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!
   def create
     build_resource(sign_up_params)
     resource.save

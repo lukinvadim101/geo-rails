@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < Devise::SessionsController
-  before_action :authenticate_user!
-
   private
 
   def respond_with(resource, _options = {})
