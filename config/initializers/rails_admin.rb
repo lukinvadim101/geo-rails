@@ -3,9 +3,9 @@
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
 
-  ## == Devise ==
+  ## == Devise ==q
   config.authenticate_with do
-    redirect_to '/', alert: 'No permissions for admin panel' unless warden.user.admin?
+    render json: { "error": 'No permissions for admin panel' } unless current_user.try(:admin?)
   end
   config.current_user_method(&:current_user)
 
