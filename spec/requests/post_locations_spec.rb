@@ -93,6 +93,14 @@ RSpec.describe LocationsController, type: :request do
         get '/locations'
         expect(response.status).to be 200
       end
+
+      it 'sends locations'
+        json = JSON.parse(response.body)
+
+        expect(json['data'].count).to eq(2)
+        expect(json['data'][0]["type"]).to eq('locations')
+        expect(json['data'][0]["attributes"]["latitude"]).to eq( location.latitude )
+      end
     end
 
     describe 'GET /locations/:id' do
