@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :users, skip: :all
+
   devise_for :users,
              path: '',
              path_names: {
@@ -13,6 +15,14 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              },
              defaults: { format: :json }
+
+  devise_scope :user do
+    scope :auth, defaults: { format: :json } do
+      post   '/signin',       to: 'sessions#create'
+      delete '/signout',      to: 'sessions#destroy'
+      post   '/signup',       to: 'registrations#create'
+    end
+  end
 
   # to do custom devise
   # ,skip: %i[sessions registrations]

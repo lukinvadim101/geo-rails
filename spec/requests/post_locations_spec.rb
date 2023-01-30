@@ -45,7 +45,7 @@ RSpec.describe 'POST Locations', type: :request do
     context 'with invalid parameters' do
       it 'returns error message' do
         post '/locations', params: invalid_attributes
-        expect(json['message']).to include('Validation failed')
+        expect(json['error']).to include('Validation failed')
       end
     end
   end

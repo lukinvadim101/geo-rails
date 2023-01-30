@@ -10,16 +10,16 @@ RSpec.describe 'GET Locations', type: :request do
 
   context 'unauthorized user' do
     describe '/locations' do
-      it 'redirect' do
+      it 'get error' do
         get '/locations'
-        expect(response.body).to include('redirected')
+        expect(json['error']).to be_truthy
       end
     end
 
     describe '/locations/:id' do
-      it 'redirect' do
+      it 'et error' do
         get "/locations/#{first_user_location.id}"
-        expect(response.body).to include('redirected')
+        expect(json['error']).to be_truthy
       end
     end
   end
@@ -43,13 +43,13 @@ RSpec.describe 'GET Locations', type: :request do
       it 'do not render other user locations' do
         login_as(second_user)
         get "/locations/#{first_user_location.id}"
-        expect(json['message']).to eq('You are not authorized to access this page.')
+        expect(json['error']).to eq('You are not authorized to access this page.')
       end
 
       it 'custom RecordNotFound handler correct' do
         login_as(first_user)
         get '/locations/88888888'
-        expect(json['message']).to include "Couldn't find Location with"
+        expect(json['error']).to include "Couldn't find Location with"
       end
     end
 
