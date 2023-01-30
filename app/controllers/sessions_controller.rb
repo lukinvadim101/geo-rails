@@ -3,19 +3,15 @@
 class SessionsController < Devise::SessionsController
   private
 
-  def failure
-    json_response data: { success: false, errors: ['Login failed.'] }
-  end
-
-  def respond_with(_resource, _options = {})
-    if _resource.errors.empty? & resource.id?
+  def respond_with(resource, _options = {})
+    if resource.errors.empty?
       json_response data: {
         message: 'User signed in successfully',
-        email: _resource.email,
+        email: resource.email,
         token: request.env['warden-jwt_auth.token']
       }
     else
-      json_response({ error: _resource.errors }, status: :unprocessable_entity)
+      json_response({ error: resource.errors })
     end
   end
 

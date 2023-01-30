@@ -34,8 +34,7 @@ describe SessionsController, type: :request do
       end
 
       it 'not settle user_id in session' do
-        # binding.pry
-        expect(json['error']).to eq('Invalid Email or password.')
+        expect(response.body).to eq('Invalid Email or password.')
       end
     end
   end
