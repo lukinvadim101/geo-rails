@@ -19,6 +19,7 @@ gem 'rails_admin'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'simplecov', require: false, group: :test
+
 gem 'sprockets', '<4'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
