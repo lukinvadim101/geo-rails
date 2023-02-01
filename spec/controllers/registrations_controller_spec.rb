@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-describe RegistrationsController, type: :request do
+describe Api::RegistrationsController, type: :request do
   let(:user) { FactoryBot.build(:user) }
   let(:existing_user) { FactoryBot.create(:user) }
-  let(:signup_url) { '/signup' }
+  let(:signup_url) { '/api/signup' }
 
   describe 'creating a new user / POST create' do
     context 'with unique email' do

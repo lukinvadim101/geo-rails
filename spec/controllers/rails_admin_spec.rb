@@ -12,7 +12,7 @@ RSpec.describe 'GET /admin ', type: :request do
     end
 
     it 'status ok' do
-      get '/admin'
+      get '/api/admin'
       expect(response.status).to eq(200)
     end
   end
@@ -23,14 +23,14 @@ RSpec.describe 'GET /admin ', type: :request do
     end
 
     it 'render json error' do
-      get '/admin'
+      get '/api/admin'
       expect(json['error']).to eq('No permissions for admin panel')
     end
   end
 
   context 'with no user credentials' do
     it 'render json error' do
-      get '/admin'
+      get '/api/admin'
       expect(json['error']).to eq('No permissions for admin panel')
     end
   end

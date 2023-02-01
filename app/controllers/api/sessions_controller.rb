@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-class SessionsController < Devise::SessionsController
+class Api::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _options = {})
     if resource.errors.empty?
-      json_response data: {
+      render json: { data: {
         message: 'User signed in successfully',
         email: resource.email,
         token: request.env['warden-jwt_auth.token']
-      }
+      } }, status: :ok
     else
-      json_response({ error: resource.errors })
+      render json: { error: resource.errors }
     end
   end
 

@@ -25,6 +25,8 @@ gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails', '~> 1.0.0'
 
+gem 'active_model_serializers'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'

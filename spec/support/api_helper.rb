@@ -5,12 +5,8 @@ module ApiHelpers
     JSON.parse(response.body)
   end
 
-  def login_with_api(user)
-    post '/login', params: {
-      user: {
-        email: user.email,
-        password: user.password
-      }
-    }
+  def authenticated_header(request, user)
+    auth_headers = Devise::JWT::TestHelpers.auth_headers(request, user)
+    request.headers.merge!(auth_headers)
   end
 end
