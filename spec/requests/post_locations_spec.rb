@@ -11,8 +11,6 @@ RSpec.describe Api::LocationsController, type: :request do
 
     describe 'POST create' do
       context 'with valid parameters' do
-        let(:valid_attributes) { attributes_for(:location) }
-
         before do
           login_as(user)
           post '/api/locations', params: { location: valid_attributes }

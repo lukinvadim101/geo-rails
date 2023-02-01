@@ -8,23 +8,20 @@ describe Api::SessionsController, type: :request do
 
   describe 'logging in / POST create' do
     context 'valid password' do
-      # before do
-      #   post login_url, params: { user: { email: user.email, password: user.password } }
-      # end
+      before do
+        post login_url, params: { user: { email: user.email, password: user.password } }
+      end
 
       it 'returns 200' do
-        post login_url, params: { user: { email: user.email, password: user.password } }
         expect(json['data']['message']).to eq('User signed in successfully')
         expect(response.status).to eq(200)
       end
 
       it 'returns a token' do
-        post login_url, params: { user: { email: user.email, password: user.password } }
         expect(response.headers['Authorization']).to be_present
       end
 
       it 'returns a token value' do
-        post login_url, params: { user: { email: user.email, password: user.password } }
         expect(json['data']['token']).to be_present
       end
     end
