@@ -15,9 +15,9 @@ class Api::LocationsController < ApiController
     render json: @location
   end
 
-  def save
+  def checkin
     get_coordinates(request)
-    location = set_user_location
+    @location = set_user_location
 
     location.save
     render json: location
