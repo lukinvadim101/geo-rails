@@ -15,12 +15,13 @@ class Api::LocationsController < ApiController
     render json: @location
   end
 
-  def checkin
+
+  # GET  /location/checkin
     get_coordinates(request)
     @location = set_user_location
 
-    location.save
-    render json: location
+    @location.save
+    render json: @location
   end
 
   def create
